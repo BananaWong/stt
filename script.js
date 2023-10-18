@@ -36,3 +36,31 @@ function downloadText() {
 
     URL.revokeObjectURL(url);
 }
+let mediaRecorder;
+let recordedChunks = [];
+
+function toggleRecording() {
+    const recordButton = document.getElementById('recordButton');
+    if (!mediaRecorder || mediaRecorder.state === 'inactive') {
+        navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+            mediaRecorder = new MediaRecorder(stream);
+            mediaRecorder.ondataavailable = event => {
+                if (event.data.size > 0) {
+                    recordedChunks.push(event.data);
+                }
+            };
+            mediaRecorder.onstop = () => {
+                const audioBlob = new Blob(recordedChunks, { type: 'audio/wav' });
+                recordedChunks = [];
+                const audioURL = URL.createObjectURL(audioBlob);
+                document.getElementById('audioPlayback').src = audioURL;
+                // 如果您希望立即将录音发送到Azure，您可以在此处添加该代码
+            };
+            mediaRecorder.start();
+            recordButton.textContent = '停止录音';
+        });
+    } else if (mediaRecorder.state === 'recording') {
+        mediaRecorder.stop();
+        recordButton.textContent = '开始录音';
+    }
+}

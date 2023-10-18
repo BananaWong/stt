@@ -16,6 +16,9 @@
     </select>
     <br><br>
 
+    <button id="recordButton" onclick="toggleRecording()">开始录音</button>
+    <audio id="audioPlayback" controls></audio>
+
     <input type="file" id="audioFile" accept="audio/*">
     <button onclick="uploadAudio()">上传并转换</button>
 

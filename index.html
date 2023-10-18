@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azure Speech to Text Tool</title>
+</head>
+<body>
+    <h1>Azure Speech to Text Tool</h1>
+
+    <label for="language">选择语言:</label>
+    <select id="language">
+        <option value="en-US">English</option>
+        <option value="zh-CN">中文</option>
+        <!-- 添加更多的语言选项 -->
+    </select>
+    <br><br>
+
+    <input type="file" id="audioFile" accept="audio/*">
+    <button onclick="uploadAudio()">上传并转换</button>
+
+    <h2>转换结果:</h2>
+    <textarea id="transcriptionResult" rows="10" cols="50"></textarea>
+    <button onclick="downloadText()">下载结果</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
